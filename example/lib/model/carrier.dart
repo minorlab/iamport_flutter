@@ -1,4 +1,5 @@
 class Carrier {
+  // ignore: non_constant_identifier_names
   static List<String> CARRIERS = [
     'SKT',
     'KTF',

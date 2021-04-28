@@ -1,4 +1,5 @@
 class Method {
+  // ignore: non_constant_identifier_names
   static List<String> METHODS = [
     'card',
     'trans',
@@ -6,6 +7,7 @@ class Method {
     'phone',
   ];
 
+  // ignore: non_constant_identifier_names
   static List<String> METHODS_FOR_INICIS =
     METHODS + [
       'samsung',
@@ -15,6 +17,7 @@ class Method {
       'happymoney',
     ];
 
+  // ignore: non_constant_identifier_names
   static List<String>  METHODS_FOR_UPLUS =
     METHODS + [
       'cultureland',
@@ -22,13 +25,19 @@ class Method {
       'booknlife',
     ];
 
+  // ignore: non_constant_identifier_names
   static List<String> METHODS_FOR_KCP =
     METHODS + ['samsung'];
 
+  // ignore: non_constant_identifier_names
   static List<String> METHODS_FOR_MOBILIANS = ['card', 'phone'];
+  // ignore: non_constant_identifier_names
   static List<String> METHOD_FOR_CARD = ['card'];
+  // ignore: non_constant_identifier_names
   static List<String> METHOD_FOR_PHONE = ['phone'];
+  // ignore: non_constant_identifier_names
   static List<String> METHOD_FOR_VBANK = ['vbank'];
+  // ignore: non_constant_identifier_names
   static List<String> METHOD_FOR_TRANS = ['trans'];
 
   static String getLabel(String method) {

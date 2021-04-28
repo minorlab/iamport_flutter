@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:iamport_flutter/model/certification_data.dart';
 
 import '../model/carrier.dart';
@@ -11,12 +10,12 @@ class CertificationTest extends StatefulWidget {
 
 class _CertificationTestState extends State<CertificationTest> {
   final _formKey = GlobalKey<FormState>();
-  String merchantUid;        // 주문번호
+  String merchantUid; // 주문번호
   String company = '아임포트'; // 회사명 또는 URL
-  String carrier = 'SKT';    // 통신사
-  String name;               // 본인인증 할 이름
-  String phone;              // 본인인증 할 전화번호
-  String minAge;             // 최소 허용 만 나이
+  String carrier = 'SKT'; // 통신사
+  String name; // 본인인증 할 이름
+  String phone; // 본인인증 할 전화번호
+  String minAge; // 최소 허용 만 나이
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +58,12 @@ class _CertificationTestState extends State<CertificationTest> {
                     carrier = value;
                   });
                 },
-                items: Carrier.getLists()
-                  .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(Carrier.getLabel(value)),
-                    );
-                  })
-                  .toList(),
+                items: Carrier.getLists().map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(Carrier.getLabel(value)),
+                  );
+                }).toList(),
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -96,8 +93,7 @@ class _CertificationTestState extends State<CertificationTest> {
                   if (value.length > 0) {
                     Pattern pattern = r'^[0-9]+$';
                     RegExp regex = new RegExp(pattern);
-                    if (!regex.hasMatch(value))
-                      return '최소 연령이 올바르지 않습니다.';
+                    if (!regex.hasMatch(value)) return '최소 연령이 올바르지 않습니다.';
                   }
                   return null;
                 },
@@ -108,7 +104,7 @@ class _CertificationTestState extends State<CertificationTest> {
               ),
               Container(
                 padding: EdgeInsets.fromLTRB(0, 30.0, 0, 0),
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
@@ -118,28 +114,26 @@ class _CertificationTestState extends State<CertificationTest> {
                         'carrier': carrier,
                       });
                       if (company != null) {
-                        data.company = company; 
+                        data.company = company;
                       }
                       if (name != null) {
-                        data.name = name; 
+                        data.name = name;
                       }
                       if (phone != null) {
-                        data.phone = phone; 
+                        data.phone = phone;
                       }
                       if (minAge.length != null && minAge.length > 0) {
                         data.minAge = int.parse(minAge);
                       }
 
-                      Navigator.pushNamed(
-                        context,
-                        '/certification',
-                        arguments: data
-                      );
+                      Navigator.pushNamed(context, '/certification', arguments: data);
                     }
                   },
                   child: Text('본인인증 하기', style: TextStyle(fontSize: 20)),
-                  textColor: Colors.white,
-                  padding: const EdgeInsets.all(15.0),
+                  style: ElevatedButton.styleFrom(
+                    onPrimary: Colors.white,
+                    padding: const EdgeInsets.all(15.0),
+                  ),
                 ),
               ),
             ],

@@ -1,4 +1,5 @@
 class Quota {
+  // ignore: non_constant_identifier_names
   static List<String> QUOTAS = [
     '0',
     '1',

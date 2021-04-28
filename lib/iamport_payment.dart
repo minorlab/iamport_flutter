@@ -2,32 +2,33 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import './widget/iamport_error.dart';
-import './widget/iamport_webview.dart';
 import './model/iamport_url.dart';
 import './model/iamport_validation.dart';
 import './model/payment_data.dart';
+import './widget/iamport_error.dart';
+import './widget/iamport_webview.dart';
 
 String redirectUrl = IamportUrl.redirectUrl;
 
 class IamportPayment extends StatefulWidget {
-  final PreferredSizeWidget appBar;
-  final Container initialChild;
+  final PreferredSizeWidget? appBar;
+  final Container? initialChild;
   final String userCode;
   final PaymentData data;
   final Function callback;
 
   IamportPayment({
-    Key key,
+    Key? key,
     this.appBar,
     this.initialChild,
-    this.userCode,
-    this.data,
-    this.callback,
+    required this.userCode,
+    required this.data,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -36,9 +37,9 @@ class IamportPayment extends StatefulWidget {
 
 class _IamportPaymentState extends State<IamportPayment> {
   final webView = new FlutterWebviewPlugin();
-  StreamSubscription<String> _onUrlChanged;
-  StreamSubscription<WebViewStateChanged> _onStateChanged;
-  StreamSubscription _sub;
+  late StreamSubscription<String> _onUrlChanged;
+  late StreamSubscription<WebViewStateChanged> _onStateChanged;
+  StreamSubscription? _sub;
 
   @override
   void initState() {
@@ -67,8 +68,7 @@ class _IamportPaymentState extends State<IamportPayment> {
       }
     });
 
-    _onStateChanged =
-        webView.onStateChanged.listen((WebViewStateChanged state) async {
+    _onStateChanged = webView.onStateChanged.listen((WebViewStateChanged state) async {
       if (mounted) {
         WebViewState type = state.type;
         String url = state.url;
@@ -95,21 +95,19 @@ class _IamportPaymentState extends State<IamportPayment> {
     });
 
     /* NICE - 실시간 계좌이체 대비 : trigger incoming app link */
-    _sub = getLinksStream().listen((String link) async {
+    _sub = uriLinkStream.listen((Uri? link) async {
       if (!mounted) return;
       try {
         PaymentData data = widget.data;
         if (link != null) {
-          String decodedUrl = Uri.decodeComponent(link);
+          String decodedUrl = Uri.decodeComponent(link.toString());
           Uri parsedUrl = Uri.parse(decodedUrl);
           String scheme = parsedUrl.scheme;
-          if (scheme == data.appScheme.toLowerCase() &&
-              data.pg == 'nice' &&
-              data.payMethod == 'trans') {
+          if (scheme == data.appScheme!.toLowerCase() && data.pg == 'nice' && data.payMethod == 'trans') {
             String queryToString = parsedUrl.query;
 
             /* [v0.9.6] niceMobileV2: true 대비 코드 작성 */
-            String niceTransRedirectionUrl;
+            late String niceTransRedirectionUrl;
             parsedUrl.queryParameters.forEach((key, value) {
               if (key == 'callbackparam1') {
                 niceTransRedirectionUrl = value;
@@ -128,7 +126,7 @@ class _IamportPaymentState extends State<IamportPayment> {
   void dispose() {
     _onUrlChanged.cancel();
     _onStateChanged.cancel();
-    if (_sub != null) _sub.cancel();
+    if (_sub != null) _sub?.cancel();
 
     webView.dispose();
     super.dispose();
@@ -147,8 +145,7 @@ class _IamportPaymentState extends State<IamportPayment> {
       String scheme = parsedUrl.scheme;
       if (data.pg == 'html5_inicis') {
         Map<String, String> query = parsedUrl.queryParameters;
-        if (scheme == data.appScheme.toLowerCase() &&
-            query['m_redirect_url'].contains(redirectUrl)) {
+        if (scheme == data.appScheme!.toLowerCase() && query['m_redirect_url']!.contains(redirectUrl)) {
           return true;
         }
       }
@@ -158,15 +155,14 @@ class _IamportPaymentState extends State<IamportPayment> {
 
   @override
   Widget build(BuildContext context) {
-    IamportValidation validation =
-        IamportValidation(widget.userCode, widget.data, widget.callback);
+    IamportValidation validation = IamportValidation(widget.userCode, widget.data, widget.callback);
     bool isValid = validation.getIsValid();
 
     if (isValid) {
       return IamportWebView('결제', widget.appBar, widget.initialChild);
     }
 
-    String errorMessage = validation.getErrorMessage();
+    String errorMessage = validation.getErrorMessage()!;
     return IamportError('결제', errorMessage);
   }
 }

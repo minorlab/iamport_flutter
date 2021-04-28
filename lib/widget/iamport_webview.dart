@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class IamportWebView extends StatelessWidget {
@@ -19,8 +20,8 @@ class IamportWebView extends StatelessWidget {
   ''';
 
   final String type;
-  final PreferredSizeWidget appBar;
-  final Widget initialChild;
+  final PreferredSizeWidget? appBar;
+  final Widget? initialChild;
   IamportWebView(this.type, this.appBar, this.initialChild);
 
   @override
@@ -42,16 +43,13 @@ class IamportWebView extends StatelessWidget {
                   Image.asset('assets/images/iamport-logo.png'),
                   Container(
                     padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
-                    child:
-                        Text('잠시만 기다려주세요...', style: TextStyle(fontSize: 20.0)),
+                    child: Text('잠시만 기다려주세요...', style: TextStyle(fontSize: 20.0)),
                   ),
                 ],
               ),
             ),
           ),
-      invalidUrlRegex: Platform.isAndroid
-          ? '^(?!https://|http://|about:blank|data:).+'
-          : null,
+      invalidUrlRegex: Platform.isAndroid ? '^(?!https://|http://|about:blank|data:).+' : null,
     );
   }
 }

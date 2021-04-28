@@ -16,3 +16,6 @@ example/ios/Podfile.lock
 **/Flutter/Flutter.framework/
 **/Flutter/Generated.xcconfig/
 **/Flutter/flutter_assets/
+example/.flutter-plugins-dependencies
+example/ios/Flutter/flutter_export_environment.sh
+example/ios/Flutter/flutter_export_environment.sh

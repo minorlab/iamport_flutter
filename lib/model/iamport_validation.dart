@@ -2,9 +2,9 @@ import './payment_data.dart';
 
 class IamportValidation {
   bool isValid = true;
-  String errorMessage;
+  String? errorMessage;
 
-  IamportValidation(String userCode, PaymentData data, Function callback) {
+  IamportValidation(String? userCode, PaymentData? data, Function? callback) {
     print('data: $data');
     if (userCode == null) {
       isValid = false;
@@ -80,8 +80,7 @@ class IamportValidation {
       return;
     }
 
-    if ((data.pg == 'naverpay' || data.pg == 'naverco') &&
-        data.naverPopupMode == true) {
+    if ((data.pg == 'naverpay' || data.pg == 'naverco') && data.naverPopupMode == true) {
       isValid = false;
       errorMessage = '해당 모듈에서 네이버페이 - 팝업 방식은 지원하지 않습니다.';
       return;
@@ -92,7 +91,7 @@ class IamportValidation {
     return isValid;
   }
 
-  String getErrorMessage() {
+  String? getErrorMessage() {
     return errorMessage;
   }
 }

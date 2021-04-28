@@ -1,33 +1,33 @@
 import 'dart:async';
 import 'dart:core';
 import 'dart:io' show Platform;
-import 'package:flutter/foundation.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import './model/iamport_url.dart';
 import './model/certification_data.dart';
+import './model/iamport_url.dart';
 import './widget/iamport_webview.dart';
 
 String redirectUrl = IamportUrl.redirectUrl;
 
 class IamportCertification extends StatefulWidget {
-  final PreferredSizeWidget appBar;
-  final Container initialChild;
+  final PreferredSizeWidget? appBar;
+  final Container? initialChild;
   final String userCode;
   final CertificationData data;
   final callback;
 
   IamportCertification({
-    Key key,
+    Key? key,
     this.appBar,
     this.initialChild,
-    this.userCode,
-    this.data,
-    this.callback,
+    required this.userCode,
+    required this.data,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -36,8 +36,8 @@ class IamportCertification extends StatefulWidget {
 
 class _IamportCertificationState extends State<IamportCertification> {
   final webView = new FlutterWebviewPlugin();
-  StreamSubscription<String> _onUrlChanged;
-  StreamSubscription<WebViewStateChanged> _onStateChanged;
+  late StreamSubscription<String> _onUrlChanged;
+  late StreamSubscription<WebViewStateChanged> _onStateChanged;
 
   @override
   void initState() {
@@ -54,8 +54,7 @@ class _IamportCertificationState extends State<IamportCertification> {
       }
     });
 
-    _onStateChanged =
-        webView.onStateChanged.listen((WebViewStateChanged state) async {
+    _onStateChanged = webView.onStateChanged.listen((WebViewStateChanged state) async {
       if (mounted) {
         WebViewState type = state.type;
         String url = state.url;

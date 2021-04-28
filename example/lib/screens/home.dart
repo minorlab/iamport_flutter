@@ -79,13 +79,13 @@ class _HomeState extends State<Home> {
                         right: 10.0,
                         bottom: 0.0,
                       ),
-                      child: RaisedButton.icon(
+                      child: ElevatedButton.icon(
                         icon: Icon(Icons.payment),
                         onPressed: () {
                           Navigator.pushNamed(context, '/payment-test');
                         },
                         label: Text('결제 테스트'),
-                        color: Colors.white,
+                        style: ElevatedButton.styleFrom(primary: Colors.white),
                       ),
                     ),
                     Padding(
@@ -95,13 +95,13 @@ class _HomeState extends State<Home> {
                         right: 0.0,
                         bottom: 0.0,
                       ),
-                      child: RaisedButton.icon(
+                      child: ElevatedButton.icon(
                         icon: Icon(Icons.people),
                         onPressed: () {
                           Navigator.pushNamed(context, '/certification-test');
                         },
                         label: Text('본인인증 테스트'),
-                        color: Colors.white,
+                        style: ElevatedButton.styleFrom(primary: Colors.white),
                       ),
                     ),
                   ],

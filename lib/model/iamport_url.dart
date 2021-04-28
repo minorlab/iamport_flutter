@@ -1,11 +1,11 @@
-import 'dart:io' show Platform;
+// import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
 
 class IamportUrl {
-  String url;
-  String appScheme;
-  String appUrl;
+  late String url;
+  late String appScheme;
+  late String appUrl;
 
   static const MethodChannel _channel = const MethodChannel('iamport_flutter');
   static String redirectUrl = 'http://localhost/iamport';
@@ -25,10 +25,7 @@ class IamportUrl {
   }
 
   bool isAppLink() {
-    return appScheme != 'http' &&
-        appScheme != 'https' &&
-        appScheme != 'about:blank' &&
-        appScheme != 'data';
+    return appScheme != 'http' && appScheme != 'https' && appScheme != 'about:blank' && appScheme != 'data';
   }
 
   Future<String> getAppUrl() async {
@@ -80,7 +77,6 @@ class IamportUrl {
 
   Future<String> launch() async {
     // [0.9.14] Only for Android
-    return await _channel
-        .invokeMethod('launch', <String, Object>{'url': this.url});
+    return await _channel.invokeMethod('launch', <String, Object>{'url': this.url});
   }
 }

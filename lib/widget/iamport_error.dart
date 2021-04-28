@@ -5,6 +5,7 @@ class IamportError extends StatelessWidget {
 
   final String actionType;
   final String errorMessage;
+
   IamportError(this.actionType, this.errorMessage);
 
   @override
@@ -48,15 +49,13 @@ class IamportError extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  RaisedButton.icon(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    label: Text('돌아가기', style: TextStyle(fontSize: 16.0)),
-                    color: Colors.white,
-                    textColor: failureColor,
-                  ),
+                  ElevatedButton.icon(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      label: Text('돌아가기', style: TextStyle(fontSize: 16.0)),
+                      style: ElevatedButton.styleFrom(primary: Colors.white, onPrimary: failureColor)),
                 ],
               ),
             ),

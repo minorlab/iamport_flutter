@@ -62,8 +62,7 @@ class CertificationResult extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (isErrorMessageRendering)
-                  Container(
+                isErrorMessageRendering ?  Container(
                     padding: EdgeInsets.fromLTRB(0, 5.0, 0, 5.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -78,19 +77,18 @@ class CertificationResult extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
+                  ) : SizedBox(),
               ],
             ),
           ),
-          RaisedButton.icon(
+          ElevatedButton.icon(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/certification-test');
             },
             label: Text('돌아가기', style: TextStyle(fontSize: 16.0)),
-            color: Colors.white,
-            textColor: color,
+            style: ElevatedButton.styleFrom(primary: Colors.white, onPrimary: color),
           ),
         ],
       ),
