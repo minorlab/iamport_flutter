@@ -10,7 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_webview_plugin: ">=0.3.11"
+  flutter_webview_plugin: #">=0.3.11"
+    git:
+      url: https://github.com/fonibo/flutter_webview_plugin
 #  webview_flutter: ">=2.0.4"
   # flutter_webview_plugin:
   #   path: /Users/deedee/Desktop/iamport/flutter/flutter_webview_plugin
