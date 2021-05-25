@@ -19,8 +19,8 @@ class PaymentData {
   String? language; // 언어설정
   String? merchantUid; // 주문번호
   String buyerName; // 구매자 이름
-  String buyerTel; // 구매자 연락처
-  String buyerEmail; // 구매자 이메일
+  String? buyerTel; // 구매자 연락처
+  String? buyerEmail; // 구매자 이메일
   String? buyerAddr; // 구매자 주소
   String? buyerPostcode; // 구매자 우편번호
   String? noticeUrl;
